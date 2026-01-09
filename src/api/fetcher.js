@@ -3,6 +3,7 @@ const BASE_URL = import.meta.env.VITE_API_URL;
 export async function fetcher(endpoint, { method = "GET", body, token } = {}) {
   const res = await fetch(`${BASE_URL}${endpoint}`, {
     method,
+    /*     credentials: "include", */
     headers: {
       "Content-Type": "application/json",
       ...(token && { Authorization: `Bearer ${token}` }),

@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Login from "./pages/Login";
 import Home from "./pages/Home";
 import ProtectedRoute from "./routes/ProtectedRoute";
+import Feed from "./pages/Feed";
 
 function App() {
   return (
@@ -15,7 +16,7 @@ function App() {
           path="/"
           element={
             <ProtectedRoute>
-              <Home />
+              <Feed />
             </ProtectedRoute>
           }
         />
