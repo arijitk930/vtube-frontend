@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useVideos } from "../hooks/videos/useVideos.js";
 import { useCurrentUser } from "../hooks/auth/useCurrentUser";
+import VideoCard from "../components/VideoCard";
 
 function Feed() {
   const [page, setPage] = useState(1);
@@ -54,38 +55,42 @@ function Feed() {
   }
 
   const videos = videosQuery.data?.data?.videos ?? [];
+  console.log(videos);
 
   return (
     <div className="min-h-screen bg-black text-white p-6">
       <h1 className="text-2xl font-bold mb-6">Video Feed</h1>
 
-      <div className="space-y-4">
-        {videos.map(function (video) {
-          return (
-            <div key={video._id} className="bg-gray-900 p-4 rounded">
-              <h2 className="text-lg font-semibold">{video.title}</h2>
-              <p className="text-sm text-gray-400">{video.description}</p>
-            </div>
-          );
-        })}
+      {/* ✅ GRID START */}
+      <div
+        className="
+          grid
+          grid-cols-1
+          sm:grid-cols-2
+          lg:grid-cols-3
+          xl:grid-cols-4
+          gap-6
+        "
+      >
+        {videos.map((video) => (
+          <VideoCard key={video._id} video={video} />
+        ))}
       </div>
+      {/* ✅ GRID END */}
 
-      <div className="flex justify-between mt-6">
+      {/* Pagination */}
+      <div className="flex justify-between mt-8">
         <button
           className="bg-gray-700 px-4 py-2 rounded disabled:opacity-50"
           disabled={page === 1}
-          onClick={function () {
-            setPage(page - 1);
-          }}
+          onClick={() => setPage(page - 1)}
         >
           Prev
         </button>
 
         <button
           className="bg-gray-700 px-4 py-2 rounded"
-          onClick={function () {
-            setPage(page + 1);
-          }}
+          onClick={() => setPage(page + 1)}
         >
           Next
         </button>

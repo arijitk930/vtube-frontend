@@ -1,25 +1,21 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Login from "./pages/Login";
 import Home from "./pages/Home";
+import VideoDetail from "./pages/VideoDetail";
 import ProtectedRoute from "./routes/ProtectedRoute";
-import Feed from "./pages/Feed";
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        {/* Public route */}
+        {/* Public */}
         <Route path="/login" element={<Login />} />
 
-        {/* Protected route */}
-        <Route
-          path="/"
-          element={
-            <ProtectedRoute>
-              <Feed />
-            </ProtectedRoute>
-          }
-        />
+        {/* Protected Parent */}
+        <Route element={<ProtectedRoute />}>
+          <Route path="/" element={<Home />} />
+          <Route path="/videos/:id" element={<VideoDetail />} />
+        </Route>
 
         {/* Catch-all */}
         <Route path="*" element={<Navigate to="/" />} />

@@ -1,13 +1,12 @@
-import Navbar from "../components/Navbar";
+import AppLayout from "../components/AppLayout";
+import Navbar from "../components/Header";
+import Feed from "./Feed";
 
 const Home = () => {
   return (
-    <>
-      <Navbar />
-      <div className="min-h-screen bg-black text-white flex items-center justify-center">
-        Home (Protected)
-      </div>
-    </>
+    <AppLayout>
+      <Feed />
+    </AppLayout>
   );
 };
 
