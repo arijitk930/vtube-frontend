@@ -47,7 +47,7 @@ function VideoDetail() {
   return (
     <div className="min-h-screen bg-black text-white px-6 py-4">
       <div className="max-w-5xl mx-auto space-y-4">
-        <VideoPlayer src={video.videoFile} />
+        <VideoPlayer src={video.videoFile} videoId={video._id} />
 
         <VideoMeta video={video} />
 
