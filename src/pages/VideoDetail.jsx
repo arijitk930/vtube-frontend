@@ -7,10 +7,15 @@ import VideoActions from "../components/videodetails/VideoActions";
 import ChannelInfo from "../components/videodetails/ChannelInfo";
 import VideoDescription from "../components/videodetails/VideoDescription";
 
+import AddComment from "../components/comments/AddComment";
+import CommentList from "../components/comments/CommentList";
+import { useComments } from "../hooks/comments/useComments";
+
 function VideoDetail() {
   const { id } = useParams();
 
   const { data, isPending, error } = useVideoByID(id);
+  const { data: commentsData } = useComments(id);
 
   if (isPending) {
     return (
@@ -29,6 +34,7 @@ function VideoDetail() {
   }
 
   const video = data?.data;
+  const comments = commentsData?.data?.comments ?? [];
 
   if (!video) {
     return (
@@ -50,6 +56,16 @@ function VideoDetail() {
         <ChannelInfo owner={video.owner} />
 
         <VideoDescription description={video.description} />
+
+        {/* COMMENTS */}
+        <section className="mt-8">
+          <h2 className="text-lg font-semibold mb-2">
+            {comments.length} Comments
+          </h2>
+
+          <AddComment videoId={id} />
+          <CommentList comments={comments} />
+        </section>
       </div>
     </div>
   );

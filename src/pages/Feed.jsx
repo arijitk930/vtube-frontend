@@ -1,100 +1,69 @@
-import { useState } from "react";
-import { useVideos } from "../hooks/videos/useVideos.js";
-import { useCurrentUser } from "../hooks/auth/useCurrentUser";
+import { useEffect } from "react";
+import { useVideos } from "../hooks/videos/useVideos";
 import VideoCard from "../components/VideoCard";
 
 function Feed() {
-  const [page, setPage] = useState(1);
-
   const {
-    data: user,
-    isPending: isUserLoading,
-    error: userError,
-  } = useCurrentUser();
-
-  const videosQuery = useVideos({
-    page,
-    limit: 5,
+    data,
+    isPending,
+    isFetchingNextPage,
+    fetchNextPage,
+    hasNextPage,
+    error,
+  } = useVideos({
+    limit: 6,
     sortBy: "createdAt",
     sortType: "desc",
-    userId: user?._id,
   });
 
-  // 1️⃣ User loading first
-  if (isUserLoading) {
+  // Auto-load next page on scroll bottom
+  useEffect(() => {
+    function onScroll() {
+      const nearBottom =
+        window.innerHeight + window.scrollY >= document.body.offsetHeight - 300;
+
+      if (nearBottom && hasNextPage && !isFetchingNextPage) {
+        fetchNextPage();
+      }
+    }
+
+    window.addEventListener("scroll", onScroll);
+    return () => window.removeEventListener("scroll", onScroll);
+  }, [hasNextPage, isFetchingNextPage, fetchNextPage]);
+
+  if (isPending) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-black text-white">
-        Loading user...
+        Loading feed...
       </div>
     );
   }
 
-  if (userError || !user) {
+  if (error) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-black text-red-500">
-        Failed to load user
+        Failed to load feed
       </div>
     );
   }
 
-  // 2️⃣ Videos loading
-  if (videosQuery.isPending) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-black text-white">
-        Loading videos...
-      </div>
-    );
-  }
-
-  if (videosQuery.error) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-black text-red-500">
-        Failed to load videos
-      </div>
-    );
-  }
-
-  const videos = videosQuery.data?.data?.videos ?? [];
-  console.log(videos);
+  const videos = data?.pages.flatMap((page) => page.data.videos) ?? [];
 
   return (
     <div className="min-h-screen bg-black text-white p-6">
       <h1 className="text-2xl font-bold mb-6">Video Feed</h1>
 
-      {/* ✅ GRID START */}
-      <div
-        className="
-          grid
-          grid-cols-1
-          sm:grid-cols-2
-          lg:grid-cols-3
-          xl:grid-cols-4
-          gap-6
-        "
-      >
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
         {videos.map((video) => (
           <VideoCard key={video._id} video={video} />
         ))}
       </div>
-      {/* ✅ GRID END */}
 
-      {/* Pagination */}
-      <div className="flex justify-between mt-8">
-        <button
-          className="bg-gray-700 px-4 py-2 rounded disabled:opacity-50"
-          disabled={page === 1}
-          onClick={() => setPage(page - 1)}
-        >
-          Prev
-        </button>
-
-        <button
-          className="bg-gray-700 px-4 py-2 rounded"
-          onClick={() => setPage(page + 1)}
-        >
-          Next
-        </button>
-      </div>
+      {isFetchingNextPage && (
+        <div className="text-center text-gray-400 mt-6">
+          Loading more videos...
+        </div>
+      )}
     </div>
   );
 }

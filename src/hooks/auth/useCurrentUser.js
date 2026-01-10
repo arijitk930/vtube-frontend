@@ -11,7 +11,7 @@ export function useCurrentUser() {
       const res = await fetcher("/users/current-user", { token });
       return res.data;
     },
-
-    enabled: !!true,
+    enabled: !!token, // 🔑 only fetch when logged in
+    retry: false,
   });
 }

@@ -1,32 +1,29 @@
-import { useQuery } from "@tanstack/react-query";
+import { useInfiniteQuery } from "@tanstack/react-query";
 import { useAuth } from "../../context/AuthContext";
 import { fetcher } from "../../api/fetcher";
 
-export function useVideos(params) {
+export function useVideos({
+  limit = 5,
+  sortBy = "createdAt",
+  sortType = "desc",
+} = {}) {
   const { token } = useAuth();
 
-  const {
-    page = 1,
-    limit = 5,
-    sortBy = "asc",
-    sortType = "asc",
-    userId,
-  } = params;
-
-  return useQuery({
-    queryKey: ["videos", page, limit, sortBy, sortType, userId],
-    queryFn: function () {
+  return useInfiniteQuery({
+    queryKey: ["videos", limit, sortBy, sortType],
+    queryFn: ({ pageParam = 1 }) => {
       const query = new URLSearchParams({
-        page,
+        page: pageParam,
         limit,
         sortBy,
         sortType,
-        userId,
       }).toString();
 
       return fetcher(`/videos?${query}`, { token });
     },
-    keepPreviousData: true,
-    enabled: !!token && !!userId,
+    getNextPageParam: (lastPage) => {
+      const pagination = lastPage?.data?.pagination;
+      return pagination?.hasNextPage ? pagination.currentPage + 1 : undefined;
+    },
   });
 }

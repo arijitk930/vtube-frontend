@@ -7,9 +7,7 @@ export function useVideoByID(videoId) {
 
   return useQuery({
     queryKey: ["video", videoId],
-    queryFn: function () {
-      return fetcher(`/videos/${videoId}`, { token });
-    },
-    enabled: !!token && !!videoId,
+    queryFn: () => fetcher(`/videos/${videoId}`, { token }),
+    enabled: !!videoId, // 🔑 token NOT required
   });
 }
