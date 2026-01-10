@@ -51,7 +51,7 @@ function VideoDetail() {
 
         <VideoMeta video={video} />
 
-        <VideoActions />
+        <VideoActions videoId={video._id} likes={video.likes} />
 
         <ChannelInfo owner={video.owner} />
 
