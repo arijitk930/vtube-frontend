@@ -1,8 +1,10 @@
 import { useRef } from "react";
 import { fetcher } from "../../api/fetcher";
+import { useAuth } from "../../context/AuthContext";
 
 function VideoPlayer({ src, videoId }) {
   const hasCounted = useRef(false);
+  const { token } = useAuth();
 
   function handleTimeUpdate(e) {
     if (hasCounted.current) return;
@@ -11,7 +13,10 @@ function VideoPlayer({ src, videoId }) {
 
     // ✅ Count view only after 2 seconds of actual playback
     if (currentTime >= 2) {
-      fetcher(`/videos/${videoId}/view`, { method: "POST" });
+      fetcher(`/videos/${videoId}/view`, {
+        method: "POST",
+        token: token || undefined,
+      });
       hasCounted.current = true;
     }
   }
