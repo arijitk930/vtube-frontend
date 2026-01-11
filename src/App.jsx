@@ -1,29 +1,43 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+
 import Login from "./pages/Login";
 import Home from "./pages/Home";
 import VideoDetail from "./pages/VideoDetail";
-/* import Dashboard from "./pages/Dashboard"; */
+import LikedVideos from "./pages/LikedVideos";
+import History from "./pages/History";
+import MyContent from "./pages/MyContent";
+import Collections from "./pages/Collections";
+import Subscribers from "./pages/Subscribers";
+import Settings from "./pages/Settings";
+
 import ProtectedRoute from "./routes/ProtectedRoute";
+import AppLayout from "./components/AppLayout";
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        {/* Public routes */}
-        <Route path="/" element={<Home />} />
-        <Route path="/videos/:id" element={<VideoDetail />} />
-        <Route path="/login" element={<Login />} />
+        {/* LAYOUT ROUTES */}
+        <Route element={<AppLayout />}>
+          {/* Public */}
+          <Route path="/" element={<Home />} />
+          <Route path="/videos/:id" element={<VideoDetail />} />
 
-        {/* Protected routes */}
-        <Route element={<ProtectedRoute />}>
-          {/* <Route path="/dashboard" element={<Dashboard />} /> */}
-          {/* future protected routes:
-              /playlists
-              /your-videos
-          */}
+          {/* Protected */}
+          <Route element={<ProtectedRoute />}>
+            <Route path="/likedvideos" element={<LikedVideos />} />
+            <Route path="/history" element={<History />} />
+            <Route path="/my-content" element={<MyContent />} />
+            <Route path="/collections" element={<Collections />} />
+            <Route path="/subscribers" element={<Subscribers />} />
+            <Route path="/settings" element={<Settings />} />
+          </Route>
         </Route>
 
-        {/* Catch-all */}
+        {/* Auth only */}
+        <Route path="/login" element={<Login />} />
+
+        {/* Fallback */}
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
     </BrowserRouter>

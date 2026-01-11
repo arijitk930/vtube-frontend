@@ -1,8 +1,9 @@
 // src/components/AppLayout.jsx
+import { Outlet } from "react-router-dom";
 import Header from "./Header";
 import Sidebar from "./Sidebar";
 
-function AppLayout({ children }) {
+function AppLayout() {
   return (
     <div className="h-screen flex flex-col bg-black">
       {/* Header */}
@@ -13,7 +14,9 @@ function AppLayout({ children }) {
         <Sidebar />
 
         {/* Main Content */}
-        <main className="flex-1 overflow-y-auto">{children}</main>
+        <main className="flex-1 overflow-y-auto">
+          <Outlet />
+        </main>
       </div>
     </div>
   );

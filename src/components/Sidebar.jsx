@@ -1,43 +1,78 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
+import {
+  AiFillHome,
+  AiOutlineLike,
+  AiOutlineHistory,
+  AiOutlineSetting,
+} from "react-icons/ai";
+import { MdVideoLibrary, MdSubscriptions, MdHelpOutline } from "react-icons/md";
 
 function Sidebar() {
+  const { token } = useAuth();
+  const navigate = useNavigate();
+
   const linkClass =
-    "block px-3 py-2 rounded hover:text-white hover:bg-gray-800";
+    "flex items-center gap-3 px-3 py-2 rounded hover:text-white hover:bg-gray-800";
 
   return (
     <aside className="w-60 border-r border-gray-800 p-4 hidden md:block">
       <nav className="space-y-2 text-gray-300">
+        {/* ALWAYS VISIBLE */}
         <NavLink to="/" className={linkClass}>
-          Home
-        </NavLink>
-
-        <NavLink to="/liked" className={linkClass}>
-          Liked Videos
-        </NavLink>
-
-        <NavLink to="/history" className={linkClass}>
-          History
-        </NavLink>
-
-        <NavLink to="/my-content" className={linkClass}>
-          My Content
-        </NavLink>
-
-        <NavLink to="/collections" className={linkClass}>
-          Collections
-        </NavLink>
-
-        <NavLink to="/subscribers" className={linkClass}>
-          Subscribers
+          <AiFillHome size={20} />
+          <span>Home</span>
         </NavLink>
 
         <NavLink to="/support" className={linkClass}>
-          Support
+          <MdHelpOutline size={20} />
+          <span>Support</span>
         </NavLink>
 
-        <NavLink to="/settings" className={linkClass}>
-          Settings
-        </NavLink>
+        {/* GUEST CTA */}
+        {!token && (
+          <div className="mt-6 border-t border-gray-800 pt-4 space-y-3">
+            <p className="text-sm text-gray-400">
+              Sign in to like videos, view history and manage your content.
+            </p>
+            <button
+              onClick={() => navigate("/login")}
+              className="w-full bg-white text-black py-2 rounded font-medium hover:bg-gray-200"
+            >
+              Sign In
+            </button>
+          </div>
+        )}
+
+        {/* LOGGED-IN ONLY */}
+        {token && (
+          <>
+            <NavLink to="/likedvideos" className={linkClass}>
+              <AiOutlineLike size={20} />
+              <span>Liked Videos</span>
+            </NavLink>
+
+            <NavLink to="/history" className={linkClass}>
+              <AiOutlineHistory size={20} />
+              <span>History</span>
+            </NavLink>
+
+            <NavLink to="/my-content" className={linkClass}>
+              <MdVideoLibrary size={20} />
+              <span>My Content</span>
+            </NavLink>
+
+            <NavLink to="/collections" className={linkClass}>
+              <MdSubscriptions size={20} />
+              <span>Collections</span>
+            </NavLink>
+
+            <NavLink to="/settings" className={linkClass}>
+              <AiOutlineSetting size={20} />
+              <span>Settings</span>
+            </NavLink>
+          </>
+        )}
       </nav>
     </aside>
   );
