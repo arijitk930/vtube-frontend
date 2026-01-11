@@ -1,3 +1,5 @@
+import SubscribeButton from "../subscription/SubscribeButton";
+
 function ChannelInfo({ owner }) {
   if (!owner) return null;
 
@@ -20,9 +22,7 @@ function ChannelInfo({ owner }) {
       </div>
 
       {/* Subscribe Button */}
-      <button className="bg-purple-600 hover:bg-purple-700 transition px-4 py-2 rounded-full text-sm font-medium">
-        Subscribe
-      </button>
+      <SubscribeButton channelId={owner._id} />
     </div>
   );
 }

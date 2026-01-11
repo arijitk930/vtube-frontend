@@ -1,4 +1,4 @@
-import LikeButton from "./LikeButton";
+import LikeButton from "../likes/LikeButton";
 
 function VideoActions({ videoId, likes, isLikedByUser }) {
   return (
