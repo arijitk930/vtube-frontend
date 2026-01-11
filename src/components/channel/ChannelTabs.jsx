@@ -1,6 +1,7 @@
 import { useState } from "react";
+import ChannelVideos from "./ChannelVideos";
 
-function ChannelTabs() {
+function ChannelTabs({ channel }) {
   const [activeTab, setActiveTab] = useState("Videos");
 
   const tabs = ["Videos", "Playlists", "About"];
@@ -26,7 +27,7 @@ function ChannelTabs() {
 
       {/* Tabs content */}
       <div className="mt-6 text-gray-400">
-        {activeTab === "Videos" && <p>Videos will appear here</p>}
+        {activeTab === "Videos" && <ChannelVideos channelId={channel._id} />}
         {activeTab === "Playlists" && <p>Playlists coming soon</p>}
         {activeTab === "About" && <p>About channel</p>}
       </div>
