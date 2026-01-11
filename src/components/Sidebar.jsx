@@ -24,11 +24,6 @@ function Sidebar() {
           <span>Home</span>
         </NavLink>
 
-        <NavLink to="/support" className={linkClass}>
-          <MdHelpOutline size={20} />
-          <span>Support</span>
-        </NavLink>
-
         {/* GUEST CTA */}
         {!token && (
           <div className="mt-6 border-t border-gray-800 pt-4 space-y-3">
@@ -57,15 +52,15 @@ function Sidebar() {
               <span>History</span>
             </NavLink>
 
-            <NavLink to="/my-content" className={linkClass}>
+            <NavLink to="/my-channel" className={linkClass}>
               <MdVideoLibrary size={20} />
-              <span>My Content</span>
+              <span>My Channel</span>
             </NavLink>
 
-            <NavLink to="/collections" className={linkClass}>
+            {/*  <NavLink to="/collections" className={linkClass}>
               <MdSubscriptions size={20} />
               <span>Collections</span>
-            </NavLink>
+            </NavLink> */}
 
             <NavLink to="/settings" className={linkClass}>
               <AiOutlineSetting size={20} />
@@ -73,6 +68,11 @@ function Sidebar() {
             </NavLink>
           </>
         )}
+
+        <NavLink to="/support" className={linkClass}>
+          <MdHelpOutline size={20} />
+          <span>Support</span>
+        </NavLink>
       </nav>
     </aside>
   );

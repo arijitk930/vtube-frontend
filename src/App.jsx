@@ -29,7 +29,7 @@ function App() {
             <Route path="/history" element={<History />} />
 
             {/* ✅ MY CONTENT → MY CHANNEL */}
-            <Route path="/my-content" element={<Channel />} />
+            <Route path="/my-channel" element={<Channel />} />
 
             {/* ✅ ANY USER CHANNEL */}
             <Route path="/channel/:username" element={<Channel />} />

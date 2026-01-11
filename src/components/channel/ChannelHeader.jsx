@@ -5,7 +5,7 @@ function ChannelHeader({ channel, isOwner }) {
   return (
     <div className="border-b border-gray-800">
       {/* COVER IMAGE */}
-      <div className="w-full h-48 bg-gray-800 overflow-hidden">
+      <div className="w-full h-48 bg-gray-800 overflow-hidden rounded-b-2xl">
         {channel.coverImage ? (
           <img
             src={channel.coverImage}

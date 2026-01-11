@@ -1,10 +1,13 @@
 import { useState } from "react";
 import ChannelVideos from "./ChannelVideos";
+import ChannelSubscribed from "./ChannelSubscribed";
 
-function ChannelTabs({ channel }) {
+function ChannelTabs({ channel, isOwner }) {
   const [activeTab, setActiveTab] = useState("Videos");
 
-  const tabs = ["Videos", "Playlists", "About"];
+  const tabs = isOwner
+    ? ["Videos", "Playlists", "Subscribed", "About"]
+    : ["Videos", "Playlists", "About"];
 
   return (
     <div className="mt-6">
@@ -29,7 +32,9 @@ function ChannelTabs({ channel }) {
       <div className="mt-6 text-gray-400">
         {activeTab === "Videos" && <ChannelVideos channelId={channel._id} />}
         {activeTab === "Playlists" && <p>Playlists coming soon</p>}
-        {activeTab === "About" && <p>About channel</p>}
+        {activeTab === "Subscribed" && isOwner && (
+          <ChannelSubscribed channelId={channel._id} />
+        )}
       </div>
     </div>
   );

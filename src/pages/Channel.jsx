@@ -28,7 +28,7 @@ function Channel() {
   return (
     <div className="px-6">
       <ChannelHeader channel={channel} isOwner={isOwner} />
-      <ChannelTabs channel={channel} />
+      <ChannelTabs channel={channel} isOwner={isOwner} />
     </div>
   );
 }
