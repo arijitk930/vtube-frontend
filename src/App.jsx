@@ -5,10 +5,10 @@ import Home from "./pages/Home";
 import VideoDetail from "./pages/VideoDetail";
 import LikedVideos from "./pages/LikedVideos";
 import History from "./pages/History";
-import MyContent from "./pages/MyContent";
 import Collections from "./pages/Collections";
 import Subscribers from "./pages/Subscribers";
 import Settings from "./pages/Settings";
+import Channel from "./pages/Channel"; // ✅ ADD
 
 import ProtectedRoute from "./routes/ProtectedRoute";
 import AppLayout from "./components/AppLayout";
@@ -27,7 +27,13 @@ function App() {
           <Route element={<ProtectedRoute />}>
             <Route path="/likedvideos" element={<LikedVideos />} />
             <Route path="/history" element={<History />} />
-            <Route path="/my-content" element={<MyContent />} />
+
+            {/* ✅ MY CONTENT → MY CHANNEL */}
+            <Route path="/my-content" element={<Channel />} />
+
+            {/* ✅ ANY USER CHANNEL */}
+            <Route path="/channel/:username" element={<Channel />} />
+
             <Route path="/collections" element={<Collections />} />
             <Route path="/subscribers" element={<Subscribers />} />
             <Route path="/settings" element={<Settings />} />
