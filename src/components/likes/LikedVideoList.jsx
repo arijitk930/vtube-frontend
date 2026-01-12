@@ -1,4 +1,4 @@
-import VideoCard from "../VideoCard";
+import VideoCard from "../ui/VideoCard";
 
 function LikedVideosList({ videos }) {
   if (!videos || videos.length === 0) {

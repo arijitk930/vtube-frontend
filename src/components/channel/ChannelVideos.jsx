@@ -1,5 +1,5 @@
 import { useChannelVideos } from "../../hooks/channel/useChannelVideos";
-import VideoCard from "../VideoCard";
+import VideoCard from "../ui/VideoCard";
 
 function ChannelVideos({ channelId }) {
   const { data: videos, isLoading, error } = useChannelVideos(channelId);

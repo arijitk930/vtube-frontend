@@ -11,7 +11,8 @@ import Settings from "./pages/Settings";
 import Channel from "./pages/Channel"; // ✅ ADD
 
 import ProtectedRoute from "./routes/ProtectedRoute";
-import AppLayout from "./components/AppLayout";
+import AppLayout from "./components/ui/AppLayout";
+import PlaylistDetail from "./pages/PlaylistDetail";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
           {/* Public */}
           <Route path="/" element={<Home />} />
           <Route path="/videos/:id" element={<VideoDetail />} />
+          <Route path="/playlist/:playlistId" element={<PlaylistDetail />} />
 
           {/* Protected */}
           <Route element={<ProtectedRoute />}>

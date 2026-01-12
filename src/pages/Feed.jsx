@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useVideos } from "../hooks/videos/useVideos";
-import VideoCard from "../components/VideoCard";
+import VideoCard from "../components/ui/VideoCard";
 
 function Feed() {
   const {

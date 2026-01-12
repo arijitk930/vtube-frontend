@@ -1,5 +1,3 @@
-import AppLayout from "../components/AppLayout";
-
 function Settings() {
   console.log("Settings rendered"); // <-- IMPORTANT debug
   return (
