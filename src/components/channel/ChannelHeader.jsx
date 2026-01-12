@@ -1,5 +1,6 @@
 import SubscribeButton from "../subscription/SubscribeButton";
 import EditChannelButton from "./EditChannelButton";
+import { Link } from "react-router-dom";
 
 function ChannelHeader({ channel, isOwner }) {
   return (
@@ -22,12 +23,13 @@ function ChannelHeader({ channel, isOwner }) {
       <div className="flex items-center justify-between px-6 py-6">
         {/* Left */}
         <div className="flex items-center gap-4">
-          <img
-            src={channel.avatar}
-            alt={channel.fullName}
-            className="w-20 h-20 rounded-full object-cover border-4 border-black -mt-12"
-          />
-
+          <Link to={`/channel/${channel.username}`}>
+            <img
+              src={channel.avatar}
+              alt={channel.fullName}
+              className="w-20 h-20 rounded-full object-cover hover:opacity-90 transition cursor-pointer"
+            />
+          </Link>
           <div>
             <h1 className="text-xl font-semibold text-white">
               {channel.fullName}

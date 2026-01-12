@@ -25,25 +25,39 @@ function ChannelSubscribed({ channelId }) {
         return (
           <div
             key={channel._id}
-            className="flex items-center justify-between p-4 border border-gray-800 rounded-lg"
+            className="
+              flex items-center justify-between
+              p-4 rounded-lg
+              border border-gray-800
+              hover:border-gray-700
+              hover:bg-gray-900/40
+              transition
+            "
           >
-            {/* Channel info */}
+            {/* Clickable Channel Info */}
             <Link
               to={`/channel/${channel.username}`}
-              className="flex items-center gap-3"
+              className="flex items-center gap-4 group"
             >
               <img
                 src={channel.avatar}
                 alt={channel.fullName}
-                className="w-12 h-12 rounded-full object-cover"
+                className="
+                  w-12 h-12 rounded-full object-cover
+                  group-hover:opacity-90
+                  transition
+                "
               />
-              <div>
-                <p className="text-white font-medium">{channel.fullName}</p>
+
+              <div className="flex flex-col">
+                <p className="text-white font-medium group-hover:text-purple-400 transition">
+                  {channel.fullName}
+                </p>
                 <p className="text-sm text-gray-400">@{channel.username}</p>
               </div>
             </Link>
 
-            {/* Subscribe toggle */}
+            {/* Subscribe toggle (kept isolated) */}
             <SubscribeButton channelId={channel._id} />
           </div>
         );

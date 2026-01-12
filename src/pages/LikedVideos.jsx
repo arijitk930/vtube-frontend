@@ -1,5 +1,6 @@
 import { useLikedVideos } from "../hooks/likes/useLikedVideos";
 import LikedVideosList from "../components/likes/LikedVideoList";
+import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 
 function LikedVideos() {
   const { data, isPending, error } = useLikedVideos();

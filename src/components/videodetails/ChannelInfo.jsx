@@ -9,11 +9,13 @@ function ChannelInfo({ owner }) {
     <div className="flex items-center justify-between mt-6 border-t border-gray-800 pt-6">
       {/* LEFT: Channel Info */}
       <div className="flex items-center gap-4">
-        <img
-          src={owner.avatar}
-          alt={owner.fullName}
-          className="w-11 h-11 rounded-full object-cover"
-        />
+        <Link to={`/channel/${owner.username}`}>
+          <img
+            src={owner.avatar}
+            alt={owner.fullName}
+            className="w-11 h-11 rounded-full object-cover hover:opacity-90 transition"
+          />
+        </Link>
 
         {/* Clickable Channel Info */}
         <Link to={`/channel/${owner.username}`} className="flex flex-col group">
