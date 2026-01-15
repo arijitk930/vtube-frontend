@@ -1,8 +1,13 @@
+import { useState } from "react";
 import SubscribeButton from "../subscription/SubscribeButton";
 import EditChannelButton from "./EditChannelButton";
+import UploadVideoButton from "./UploadVideoButton";
+import UploadVideoModal from "./UploadVideoModal";
 import { Link } from "react-router-dom";
 
 function ChannelHeader({ channel, isOwner }) {
+  const [isUploadModalOpen, setIsUploadModalOpen] = useState(false);
+
   return (
     <div className="border-b border-gray-800">
       {/* COVER IMAGE */}
@@ -38,13 +43,24 @@ function ChannelHeader({ channel, isOwner }) {
           </div>
         </div>
 
-        {/* Right (Action Button) */}
+        {/* Right (Action Buttons) */}
         {isOwner ? (
-          <EditChannelButton />
+          <div className="flex items-center gap-3">
+            <UploadVideoButton onClick={() => setIsUploadModalOpen(true)} />
+            <EditChannelButton />
+          </div>
         ) : (
           <SubscribeButton channelId={channel._id} />
         )}
       </div>
+
+      {/* Upload Video Modal */}
+      {isUploadModalOpen && (
+        <UploadVideoModal
+          onClose={() => setIsUploadModalOpen(false)}
+          channelId={channel._id}
+        />
+      )}
     </div>
   );
 }

@@ -8,7 +8,8 @@ import History from "./pages/History";
 import Collections from "./pages/Collections";
 import Subscribers from "./pages/Subscribers";
 import Settings from "./pages/Settings";
-import Channel from "./pages/Channel"; // ✅ ADD
+import Channel from "./pages/Channel";
+import Dashboard from "./pages/Dashboard";
 
 import ProtectedRoute from "./routes/ProtectedRoute";
 import AppLayout from "./components/ui/AppLayout";
@@ -36,6 +37,7 @@ function App() {
             {/* ✅ ANY USER CHANNEL */}
             <Route path="/channel/:username" element={<Channel />} />
 
+            <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/collections" element={<Collections />} />
             <Route path="/subscribers" element={<Subscribers />} />
             <Route path="/settings" element={<Settings />} />

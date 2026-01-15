@@ -6,7 +6,12 @@ import {
   AiOutlineHistory,
   AiOutlineSetting,
 } from "react-icons/ai";
-import { MdVideoLibrary, MdSubscriptions, MdHelpOutline } from "react-icons/md";
+import {
+  MdVideoLibrary,
+  MdSubscriptions,
+  MdHelpOutline,
+  MdDashboard,
+} from "react-icons/md";
 
 function Sidebar() {
   const { token } = useAuth();
@@ -55,6 +60,11 @@ function Sidebar() {
             <NavLink to="/my-channel" className={linkClass}>
               <MdVideoLibrary size={20} />
               <span>My Channel</span>
+            </NavLink>
+
+            <NavLink to="/dashboard" className={linkClass}>
+              <MdDashboard size={20} />
+              <span>Dashboard</span>
             </NavLink>
 
             {/*  <NavLink to="/collections" className={linkClass}>
