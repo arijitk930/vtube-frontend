@@ -3,7 +3,7 @@ import Portal from "../ui/Portal";
 function UploadProgressModal({
   fileName,
   fileSize,
-
+  progress = 0,
   onCancel,
   onFinish,
   isComplete = false,
@@ -72,37 +72,51 @@ function UploadProgressModal({
               </p>
 
               {/* PROGRESS INDICATOR */}
-              <div className="flex items-center gap-3 mt-4">
-                {!isComplete ? (
-                  <>
-                    {/* SPINNING LOADER */}
-                    <div className="relative w-6 h-6">
-                      <div className="absolute inset-0 border-2 border-purple-600 border-t-transparent rounded-full animate-spin"></div>
-                    </div>
-                    <span className="text-gray-400 text-sm">Uploading...</span>
-                  </>
-                ) : (
-                  <>
-                    {/* CHECKMARK */}
-                    <div className="w-6 h-6 bg-green-500 rounded-full flex items-center justify-center">
-                      <svg
-                        className="w-4 h-4 text-white"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M5 13l4 4L19 7"
-                        />
-                      </svg>
-                    </div>
-                    <span className="text-green-400 text-sm">
-                      Upload complete!
-                    </span>
-                  </>
+              <div className="mt-4 space-y-2">
+                <div className="flex items-center gap-3">
+                  {!isComplete ? (
+                    <>
+                      {/* SPINNING LOADER */}
+                      <div className="relative w-6 h-6">
+                        <div className="absolute inset-0 border-2 border-purple-600 border-t-transparent rounded-full animate-spin"></div>
+                      </div>
+                      <span className="text-gray-400 text-sm">
+                        Uploading... {Math.round(progress)}%
+                      </span>
+                    </>
+                  ) : (
+                    <>
+                      {/* CHECKMARK */}
+                      <div className="w-6 h-6 bg-green-500 rounded-full flex items-center justify-center">
+                        <svg
+                          className="w-4 h-4 text-white"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M5 13l4 4L19 7"
+                          />
+                        </svg>
+                      </div>
+                      <span className="text-green-400 text-sm">
+                        Upload complete!
+                      </span>
+                    </>
+                  )}
+                </div>
+
+                {/* PROGRESS BAR */}
+                {!isComplete && (
+                  <div className="w-full bg-gray-700 rounded-full h-2 overflow-hidden">
+                    <div
+                      className="bg-purple-600 h-full rounded-full transition-all duration-300 ease-out"
+                      style={{ width: `${progress}%` }}
+                    />
+                  </div>
                 )}
               </div>
             </div>
