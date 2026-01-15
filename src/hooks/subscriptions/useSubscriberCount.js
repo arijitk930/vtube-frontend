@@ -7,8 +7,8 @@ export function useSubscriberCount(channelId) {
 
   return useQuery({
     queryKey: ["subscriberCount", channelId],
-    queryFn: () => fetcher(`/subscriptions/c/${channelId}`, { token }),
-    enabled: !!channelId && !!token,
+    queryFn: () => fetcher(`/subscriptions/count/${channelId}`, { token }),
+    enabled: !!channelId,
     select: (res) => res.data.totalSubscribers,
   });
 }
